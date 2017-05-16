@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-05-14 14:19:48
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-05-14 14:21:47
+* @Last Modified time: 2017-05-17 01:24:27
 */
 
 'use strict';
@@ -136,4 +136,32 @@ export function isVisible(node){
 	} else {
 		return false;
 	}
+}
+
+/**
+* [queryStr 获取地址栏查询字符串的键值,并存放在对象中]
+* @param  {[type]} url [description]
+* @return {[type]}     [description]
+*/
+function queryStr(url) {
+    var tempObj = {};
+    var arr = url.substr(url.indexOf("?")+1).split("&");
+    for(var i = 0;i < arr.length;i++) {
+        var tempArr = arr[i].split("=");
+        tempObj[tempArr[0]] = tempArr[1];
+    }
+    return tempObj;
+}
+
+//    得到任意样式的值 element.currentStyle[atrr]兼容IE8,window.getComputedStyle(element,null)[atrr]兼容火狐 该方法目前元素必须设置初始值,没有初始值返回auto,是字符串的形式.
+function getStyle(element, attr) {
+    return element.currentStyle ? element.currentStyle[attr] : window.getComputedStyle(element, null)[attr] || 0;
+}
+
+//    获取上,左滚动出去的距离,以 对象 的形式返回
+function getScroll() {
+    return {
+        left: window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft || 0,
+        top: window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop || 0,
+    };
 }
